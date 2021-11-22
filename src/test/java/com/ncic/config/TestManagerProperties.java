@@ -22,7 +22,7 @@ public class TestManagerProperties {
     @Test
     public void testProperties(){
         String rootPath = ManagerProperties.getConfigProperty("path");
-        Assert.assertEquals("C:\\conversion",rootPath);
+        Assert.assertEquals("C:/conversion",rootPath);
         System.out.println("Root Path ："+rootPath);
 
     }
