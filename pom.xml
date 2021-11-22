@@ -19,6 +19,22 @@
     </properties>
 
     <build>
+        <resources>
+            <!--将src/main/java 目录下的xml文件打包进jar中，否则install只默认对resources下的配置文件进行打包-->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

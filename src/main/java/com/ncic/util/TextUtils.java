@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class TextUtils {
+
     public static void main(String[] args) {
         String pastr = "\\\"([\\w|/|\\.]+)\\\"";
         Pattern pattern = Pattern.compile(pastr);
@@ -49,4 +50,6 @@ public class TextUtils {
             e.printStackTrace();
         }
     }
+
+
 }
