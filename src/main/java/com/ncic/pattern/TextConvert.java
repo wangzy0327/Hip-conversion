@@ -24,7 +24,7 @@ public class TextConvert {
     public static String[] matchKeyword(String s){
 //        Pattern p = Pattern.compile("(cuda|CUDA|cu|CU)\\w+");
 //        Pattern p = Pattern.compile("(hip|HIP|hIP)\\w+");
-        Pattern p = Pattern.compile("(hip|HIP|hIP)/*[\\w|/|_]+(.h)*");
+        Pattern p = Pattern.compile("(hip|HIP|hIP)/*[\\w|/|_]+[.h]*");
 //        (hip|HIP|hIP)/*[A-Z|a-z|/|_]+(.h)*
         Matcher m = p.matcher(s);
         int count = 0;
@@ -39,6 +39,7 @@ public class TextConvert {
 
     public static String replaceHIP(String s,String[] keywords){
         String r = s;
+        System.out.println(r);
         for(String keyword:keywords)
             r = r.replaceAll(keyword,MapTable.simSubMap.getOrDefault(keyword,keyword));
         for(String keyword:keywords)

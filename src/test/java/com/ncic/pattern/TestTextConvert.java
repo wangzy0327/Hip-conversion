@@ -42,24 +42,32 @@ public class TestTextConvert {
         String s2 = "using namespace hipcub;";
         String s3 = "hipcub::BlockRadixSort(temp_storage.sort).Sort(thread_keys);";
         String s4 = "size_t offset = (hipBlockIdx_x * hipBlockDim_x + hipThreadIdx_x);";
+        String s5 = "HIP_CHECK(hipModuleLoad(&Module, fileName));";
+        String s6 = "#include \"hip/hip_runtime_api.h\" ";
 
         String[] actualArr0 = {};
         String[] actualArr1 = {"hipMemcpy","hipMemcpyDeviceToHost"};
         String[] actualArr2 = {"hipcub"};
         String[] actualArr3 = {"hipcub"};
         String[] actualArr4 = {"hipBlockIdx_x","hipBlockDim_x","hipThreadIdx_x"};
+        String[] actualArr5 = {"HIP_CHECK","hipModuleLoad"};
+        String[] actualArr6 = {"hip/hip_runtime_api.h"};
 
         String[] resArr0 = textConvert.matchKeyword(s0);
         String[] resArr1 = textConvert.matchKeyword(s1);
         String[] resArr2 = textConvert.matchKeyword(s2);
         String[] resArr3 = textConvert.matchKeyword(s3);
         String[] resArr4 = textConvert.matchKeyword(s4);
+        String[] resArr5 = textConvert.matchKeyword(s5);
+        String[] resArr6 = textConvert.matchKeyword(s6);
 
         Assert.assertArrayEquals(resArr0,actualArr0);
         Assert.assertArrayEquals(resArr1,actualArr1);
         Assert.assertArrayEquals(resArr2,actualArr2);
         Assert.assertArrayEquals(resArr3,actualArr3);
         Assert.assertArrayEquals(resArr4,actualArr4);
+        Assert.assertArrayEquals(resArr5,actualArr5);
+        Assert.assertArrayEquals(resArr6,actualArr6);
     }
 
     @Test

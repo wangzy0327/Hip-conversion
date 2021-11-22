@@ -7,6 +7,7 @@ public class MapTable {
     public static final Map<String,String> expreCubNamespace = new HashMap(){{
         put("hipcub","cub");
         put("hipcub::","cub::");
+        put("HIP_CHECK","CHECK");
     }};
     public static final Map<String,String> indexMap = new HashMap(){{
         put("hipBlockIdx_x","blockIdx.x");
