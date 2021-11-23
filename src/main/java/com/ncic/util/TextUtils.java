@@ -1,5 +1,8 @@
 package com.ncic.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,6 +12,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class TextUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(TextUtils.class);
 
     public static void main(String[] args) {
         String pastr = "\\\"([\\w|/|\\.]+)\\\"";
@@ -31,18 +36,19 @@ public class TextUtils {
                 int count = 0;
                 LinkedList<String> list = new LinkedList<>();
                 while (m.find()) {
-//                    System.out.println(m.group(count));
+//                    logger.info(m.group(count));
                     list.addFirst(m.group(count));
                 }
                 String midRes = String.join(",", list.toArray(new String[0]));
                 String res = prefix + midRes + suffix + "\n";
-//                System.out.println("------------------" + res + "-------------------");
+//                logger.info("------------------" + res + "-------------------");
                 return res;
             }).reduce("", (x, y) -> x + y);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
+//            e.printStackTrace();
         }
-        System.out.println(reduce);
+        logger.info(reduce);
         byte [] buf = reduce.getBytes();
         try {
             Files.write(Paths.get(targetPath),buf);

@@ -3,14 +3,18 @@ package com.ncic.fileProcess;
 import com.ncic.config.ManagerProperties;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
 public class TestFileHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(TestFileHandler.class);
+
     @Before
     public void init(){
-        System.out.println("初始化读取配置文件 init....");
+        logger.info("初始化读取配置文件 init....");
         String rootPath = ManagerProperties.getConfigProperty("path");
     }
 

@@ -2,6 +2,8 @@ package com.ncic.fileProcess;
 
 import com.ncic.config.ManagerProperties;
 import com.ncic.pattern.MixConvert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +14,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class FileHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(FileHandler.class);
+
     private List<String> fileStrs = new ArrayList<>();
 
     public void convertHIP(String configKey){
@@ -25,7 +30,7 @@ public class FileHandler {
             File f = new File(path);
             try {
                 String oldName = f.getName();
-                System.out.println("----------------"+oldName+"------------------");
+                logger.info("----------------"+oldName+"------------------");
                 /**
                  * jdk 1.7
                  */
@@ -42,11 +47,12 @@ public class FileHandler {
                      .reduce("",(x,y)->x+y);
                 byte [] buf = res.getBytes();
                 String newName = oldName.replace(".cpp",".cu");
-                System.out.println("----------------"+newName+"------------------");
+                logger.info("----------------"+newName+"------------------");
                 String targetPath = path.replace(oldName,newName);
                 Files.write(Paths.get(targetPath),buf);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
+//                e.printStackTrace();
             }
         }
 
@@ -56,7 +62,8 @@ public class FileHandler {
     public void addAllFile(File f){
         File[] files = f.listFiles();
         for(File file:files){
-            System.out.println(file);
+            logger.info(file.toString());
+//            System.out.println(file);
             if(file.isDirectory())
                 addAllFile(file);
             else{

@@ -1,5 +1,8 @@
 package com.ncic.pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,6 +10,8 @@ import java.util.regex.Pattern;
 public class KernelPattern {
 
     private static String kernelPrefix = "hipLaunchKernelGGL";
+
+    private static final Logger logger = LoggerFactory.getLogger(KernelPattern.class);
 
     public static String convertKernel(String s){
 //        System.out.println(s);
@@ -43,7 +48,7 @@ public class KernelPattern {
                 }
                 if(!res.contains(");"))
                     res += ");";
-                System.out.println(res);
+                logger.trace(res);
                 return res;
             }
             if(groups != null && groups.length != 0 && !s.contains("HIP_KERNEL_NAME")){
@@ -67,7 +72,7 @@ public class KernelPattern {
                 }
                 if(!res.contains(");"))
                     res += ");";
-                System.out.println(res);
+                logger.trace(res);
                 return res;
             }
         }
@@ -80,11 +85,11 @@ public class KernelPattern {
         LinkedList<String> groupList = new LinkedList<>();
         while(matcher.find()){
             for(int i = 1;i <= matcher.groupCount();i++){
-                System.out.println(matcher.group(i));
+                logger.trace(matcher.group(i));
                 groupList.addLast(matcher.group(i));
             }
-            System.out.println(matcher.group(0));
-            System.out.println("-----------------------------------------------------------------");
+            logger.trace(matcher.group(0));
+            logger.trace("-----------------------------------------------------------------");
 //            System.out.println(matcher.group(0));
         }
 //        return groupList.toArray(new String[0]);

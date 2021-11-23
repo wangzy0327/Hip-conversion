@@ -44,6 +44,7 @@ public class TestTextConvert {
         String s4 = "size_t offset = (hipBlockIdx_x * hipBlockDim_x + hipThreadIdx_x);";
         String s5 = "HIP_CHECK(hipModuleLoad(&Module, fileName));";
         String s6 = "#include \"hip/hip_runtime_api.h\" ";
+        String s7 = "HIP_CHECK[hipModuleLoad(&Module, fileName)];";
 
         String[] actualArr0 = {};
         String[] actualArr1 = {"hipMemcpy","hipMemcpyDeviceToHost"};
@@ -52,6 +53,7 @@ public class TestTextConvert {
         String[] actualArr4 = {"hipBlockIdx_x","hipBlockDim_x","hipThreadIdx_x"};
         String[] actualArr5 = {"HIP_CHECK","hipModuleLoad"};
         String[] actualArr6 = {"hip/hip_runtime_api.h"};
+        String[] actualArr7 = {"HIP_CHECK","hipModuleLoad"};
 
         String[] resArr0 = textConvert.matchKeyword(s0);
         String[] resArr1 = textConvert.matchKeyword(s1);
@@ -60,14 +62,17 @@ public class TestTextConvert {
         String[] resArr4 = textConvert.matchKeyword(s4);
         String[] resArr5 = textConvert.matchKeyword(s5);
         String[] resArr6 = textConvert.matchKeyword(s6);
+        String[] resArr7 = textConvert.matchKeyword(s7);
 
-        Assert.assertArrayEquals(resArr0,actualArr0);
-        Assert.assertArrayEquals(resArr1,actualArr1);
-        Assert.assertArrayEquals(resArr2,actualArr2);
-        Assert.assertArrayEquals(resArr3,actualArr3);
-        Assert.assertArrayEquals(resArr4,actualArr4);
-        Assert.assertArrayEquals(resArr5,actualArr5);
-        Assert.assertArrayEquals(resArr6,actualArr6);
+        Assert.assertArrayEquals(actualArr0,resArr0);
+        Assert.assertArrayEquals(actualArr1,resArr1);
+        Assert.assertArrayEquals(actualArr2,resArr2);
+        Assert.assertArrayEquals(actualArr3,resArr3);
+        Assert.assertArrayEquals(actualArr4,resArr4);
+        Assert.assertArrayEquals(actualArr5,resArr5);
+        Assert.assertArrayEquals(actualArr6,resArr6);
+        Assert.assertArrayEquals(actualArr7,resArr7);
+        Assert.assertArrayEquals(actualArr0,resArr0);
     }
 
     @Test
@@ -92,11 +97,12 @@ public class TestTextConvert {
         String r4 = "size_t offset = (blockIdx.x * blockDim.x + threadIdx.x);";
 
 
-        Assert.assertEquals(textConvert.replaceHIP(s0,keyword0),r0);
-        Assert.assertEquals(textConvert.replaceHIP(s1,keyword1),r1);
-        Assert.assertEquals(textConvert.replaceHIP(s2,keyword2),r2);
-        Assert.assertEquals(textConvert.replaceHIP(s3,keyword3),r3);
-        Assert.assertEquals(textConvert.replaceHIP(s4,keyword4),r4);
+        Assert.assertEquals(r0,textConvert.replaceHIP(s0,keyword0));
+        Assert.assertEquals(r1,textConvert.replaceHIP(s1,keyword1));
+        Assert.assertEquals(r2,textConvert.replaceHIP(s2,keyword2));
+        Assert.assertEquals(r3,textConvert.replaceHIP(s3,keyword3));
+        Assert.assertEquals(r4,textConvert.replaceHIP(s4,keyword4));
+
     }
 
 }

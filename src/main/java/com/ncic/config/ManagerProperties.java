@@ -1,5 +1,8 @@
 package com.ncic.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -7,6 +10,8 @@ import java.util.Properties;
 public class ManagerProperties {
 
     private static final Properties properties = new Properties();
+
+    private static final Logger logger = LoggerFactory.getLogger(ManagerProperties.class);
 
     private ManagerProperties(){}
 
@@ -30,12 +35,14 @@ public class ManagerProperties {
         try {
             properties.load(inputStream);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
+//            e.printStackTrace();
         }finally {
             try {
                 inputStream.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
+//                e.printStackTrace();
             }
         }
     }
