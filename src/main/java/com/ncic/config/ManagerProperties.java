@@ -5,7 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.Properties;
+import java.util.Set;
 
 public class ManagerProperties {
 
@@ -33,7 +36,13 @@ public class ManagerProperties {
     static{
         InputStream inputStream = ManagerProperties.class.getClassLoader().getResourceAsStream("config.properties");
         try {
-            properties.load(inputStream);
+            properties.load(new InputStreamReader(inputStream,"UTF-8"));
+            Set<Object> set = properties.keySet();
+            Iterator<Object> iterator = set.iterator();
+            while(iterator.hasNext()){
+                String str = (String) iterator.next();
+                logger.debug("key : "+str+" , value : "+properties.getProperty(str));
+            }
         } catch (IOException e) {
             logger.error(e.getMessage());
 //            e.printStackTrace();

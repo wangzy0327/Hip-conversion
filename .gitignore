@@ -27,6 +27,8 @@ Thumbs.db
 .idea/
 out/
 target/
+classes/
+src/main/resource/
 
 #################
 # Keynote       #

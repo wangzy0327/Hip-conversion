@@ -22,6 +22,8 @@ public class KernelPattern {
         String[] groups = null;
         KPattern[] kPatterns = KPattern.values();
         String res = "";
+        //是否 是以 分号结尾
+        boolean isSuffix = s.endsWith(";");
         String[] params = s.split(",");
         //TODO repalce
         for(KPattern kPattern:kPatterns){
@@ -40,13 +42,13 @@ public class KernelPattern {
                     String tmp = params[j].trim().replace(")","").replace(";","");
                     if(tmp.equals("0") || res.contains(tmp))
                         continue;
-                    else if(j == params.length - 1){
+                    else if(isSuffix && j == params.length - 1){
                          res += tmp+");" ;
                     }else{
                         res += tmp + ", ";
                     }
                 }
-                if(!res.contains(");"))
+                if(isSuffix && !res.contains(");"))
                     res += ");";
                 logger.trace(res);
                 return res;
@@ -64,13 +66,13 @@ public class KernelPattern {
                     String tmp = params[j].trim().replace(")","").replace(";","");
                     if(tmp.equals("0") || res.contains(tmp))
                         continue;
-                    else if(j == params.length - 1){
+                    else if(isSuffix && j == params.length - 1){
                         res += tmp+");" ;
                     }else{
                         res += tmp + ", ";
                     }
                 }
-                if(!res.contains(");"))
+                if(isSuffix && !res.contains(");"))
                     res += ");";
                 logger.trace(res);
                 return res;

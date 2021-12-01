@@ -10,7 +10,7 @@
     <logger name="com.ncic.pattern.TextConvert" level="WARN"/>
     <!--trace debug info warn error-->
 
-    <root level="WARN">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
     </root>
 
