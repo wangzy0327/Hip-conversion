@@ -19,9 +19,15 @@ public class FileHandler {
 
     private List<String> fileStrs = new ArrayList<>();
 
-    public void convertHIP(String configKey){
-        String rootPathStr = ManagerProperties.getConfigProperty(configKey);
+
+    public void convertHIP(){
+        String rootPathStr = ManagerProperties.rootPathStr;
+
         File rootFile = new File(rootPathStr);
+        if(rootFile == null){
+            logger.warn("path : "+rootPathStr+" maybe incorrect!");
+            return ;
+        }
         addAllFile(rootFile);
         //TODO 修改为多线程执行
 
@@ -46,7 +52,7 @@ public class FileHandler {
                 String res = lines.map(MixConvert::convertText)
                      .reduce("",(x,y)->x+y);
                 byte [] buf = res.getBytes();
-                String newName = oldName.replace(".cpp",".cu");
+                String newName = oldName.replace(ManagerProperties.srcSuffix,ManagerProperties.targetSuffix);
                 logger.info("----------------"+newName+"------------------");
                 String targetPath = path.replace(oldName,newName);
                 Files.write(Paths.get(targetPath),buf);
@@ -67,7 +73,7 @@ public class FileHandler {
             if(file.isDirectory())
                 addAllFile(file);
             else{
-                if(file.getPath().endsWith(".cpp"))
+                if(file.getPath().endsWith(ManagerProperties.srcSuffix))
                     this.fileStrs.add(file.getPath());
             }
         }

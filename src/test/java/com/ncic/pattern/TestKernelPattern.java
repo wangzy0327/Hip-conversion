@@ -21,6 +21,7 @@ public class TestKernelPattern {
         String s12 = "hipLaunchKernelGGL(HIP_KERNEL_NAME(vector_square1<vector_square2>),vector_square, blocks, threadsPerBlock, N);";
         String s13 = "hipLaunchKernelGGL(vector_square, dim3(blocks), dim3(threadsPerBlock), 0, 0, C_d, A_d, N);";
         String s14 = "hipLaunchKernelGGL(calculateForce, grid, block, 0, 0, d_phiold,d_Fx,d_Fy,d_Fz,";
+        String s15 = "        hipLaunchKernelGGL(calculateForce, grid, block, 0, 0, d_phiold,d_Fx,d_Fy,d_Fz,";
 
         String r1 = "vector_square <<< blocks, threadsPerBlock >>> (C_d, A_d, N);";
         String r2 = "vector_square <<< blocks, threadsPerBlock >>> ();";
@@ -36,6 +37,7 @@ public class TestKernelPattern {
         String r12 = "vector_square1<vector_square2> <<< vector_square, blocks, threadsPerBlock, N >>> ();";
         String r13 = "vector_square <<< dim3(blocks), dim3(threadsPerBlock) >>> (C_d, A_d, N);";
         String r14 = "calculateForce <<< grid, block >>> (d_phiold, d_Fx, d_Fy, d_Fz, ";
+        String r15 = "        calculateForce <<< grid, block >>> (d_phiold, d_Fx, d_Fy, d_Fz, ";
 
         Assert.assertEquals(r1,KernelPattern.convertKernel(s1));
         Assert.assertEquals(r2,KernelPattern.convertKernel(s2));
@@ -51,6 +53,7 @@ public class TestKernelPattern {
         Assert.assertEquals(r12,KernelPattern.convertKernel(s12));
         Assert.assertEquals(r13,KernelPattern.convertKernel(s13));
         Assert.assertEquals(r14,KernelPattern.convertKernel(s14));
+        Assert.assertEquals(r15,KernelPattern.convertKernel(s15));
     }
 
 

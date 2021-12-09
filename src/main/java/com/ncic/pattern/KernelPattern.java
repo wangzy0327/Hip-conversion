@@ -3,6 +3,7 @@ package com.ncic.pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,6 +20,9 @@ public class KernelPattern {
             return "";
         if(!s.contains(kernelPrefix))
             return s;
+        int start = s.indexOf(kernelPrefix);
+        char[] space = new char[start];
+        Arrays.fill(space,' ');
         String[] groups = null;
         KPattern[] kPatterns = KPattern.values();
         String res = "";
@@ -50,6 +54,7 @@ public class KernelPattern {
                 }
                 if(isSuffix && !res.contains(");"))
                     res += ");";
+                res = new String(space)+res;
                 logger.trace(res);
                 return res;
             }
@@ -74,6 +79,7 @@ public class KernelPattern {
                 }
                 if(isSuffix && !res.contains(");"))
                     res += ");";
+                res = new String(space)+res;
                 logger.trace(res);
                 return res;
             }

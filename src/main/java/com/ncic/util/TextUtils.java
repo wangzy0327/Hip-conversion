@@ -39,7 +39,7 @@ public class TextUtils {
 //                    logger.info(m.group(count));
                     list.addFirst(m.group(count));
                 }
-                String midRes = String.join(",", list.toArray(new String[0]));
+                String midRes = String.join(",", list.toArray(String[]::new));
                 String res = prefix + midRes + suffix + "\n";
 //                logger.info("------------------" + res + "-------------------");
                 return res;

@@ -16,6 +16,10 @@ public class ManagerProperties {
 
     private static final Logger logger = LoggerFactory.getLogger(ManagerProperties.class);
 
+    public static String rootPathStr;
+    public static String srcSuffix ;
+    public static String targetSuffix;
+
     private ManagerProperties(){}
 
 //    public static void loadProperty(){
@@ -43,6 +47,9 @@ public class ManagerProperties {
                 String str = (String) iterator.next();
                 logger.debug("key : "+str+" , value : "+properties.getProperty(str));
             }
+            rootPathStr = properties.getProperty("path");
+            srcSuffix = properties.getProperty("srcSuffix");
+            targetSuffix = properties.getProperty("targetSuffix");
         } catch (IOException e) {
             logger.error(e.getMessage());
 //            e.printStackTrace();

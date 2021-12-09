@@ -15,12 +15,12 @@ public class TestFileHandler {
     @Before
     public void init(){
         logger.info("初始化读取配置文件 init....");
-        String rootPath = ManagerProperties.getConfigProperty("path");
+        String rootPath = ManagerProperties.rootPathStr;
     }
 
     @Test
     public void testAddAllFiles(){
-        String rootPath = ManagerProperties.getConfigProperty("path");
+        String rootPath = ManagerProperties.rootPathStr;
         FileHandler fileHandler = new FileHandler();
         fileHandler.addAllFile(new File(rootPath));
         /**
@@ -39,7 +39,7 @@ public class TestFileHandler {
     public void testConvertHIP(){
 //        String rootPath = ManagerProperties.getConfigProperty("path");
         FileHandler fileHandler = new FileHandler();
-        fileHandler.convertHIP("path");
+        fileHandler.convertHIP();
     }
 
 
