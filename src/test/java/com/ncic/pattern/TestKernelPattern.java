@@ -9,8 +9,8 @@ public class TestKernelPattern {
     public void testConvertKernel(){
         String s1 = "hipLaunchKernelGGL(vector_square, blocks, threadsPerBlock, 0, 0, C_d, A_d, N);";
         String s2 = "hipLaunchKernelGGL(vector_square, blocks, threadsPerBlock, 0, 0);";
-        String s3 = "hipLaunchKernelGGL(HIP_KERNEL_NAME(vector_square1<vector_square2>), blocks, threadsPerBlock, 0, 0, C_d, A_d, N);";
-        String s4 = "hipLaunchKernelGGL(HIP_KERNEL_NAME(vector_square1<vector_square2>), blocks, threadsPerBlock, 0, 0);";
+        String s3 = "hipLaunchKernelGGL(HIP_KERNEL_NAME(vector_square1<double>), blocks, threadsPerBlock, 0, 0, C_d, A_d, N);";
+        String s4 = "hipLaunchKernelGGL(HIP_KERNEL_NAME(vector_square1<long long>), blocks, threadsPerBlock, 0, 0);";
         String s5 = "hipLaunchKernelGGL(vector_square, blocks, threadsPerBlock, N, 0, C_d, A_d);";
         String s6 = "hipLaunchKernelGGL(vector_square, blocks, threadsPerBlock, N, 0);";
         String s7 = "hipLaunchKernelGGL(HIP_KERNEL_NAME(vector_square1<vector_square2>), blocks, threadsPerBlock, C_d, 0,  A_d, N);";
@@ -22,11 +22,12 @@ public class TestKernelPattern {
         String s13 = "hipLaunchKernelGGL(vector_square, dim3(blocks), dim3(threadsPerBlock), 0, 0, C_d, A_d, N);";
         String s14 = "hipLaunchKernelGGL(calculateForce, grid, block, 0, 0, d_phiold,d_Fx,d_Fy,d_Fz,";
         String s15 = "        hipLaunchKernelGGL(calculateForce, grid, block, 0, 0, d_phiold,d_Fx,d_Fy,d_Fz,";
+        String s16 = "        hipLaunchKernelGGL(HIP_KERNEL_NAME(atomicDerived<unsigned long long>), dim3(NUM_BLOCKS), dim3(BLOCK_SIZE), 0, 0, d_res_u64);";
 
         String r1 = "vector_square <<< blocks, threadsPerBlock >>> (C_d, A_d, N);";
         String r2 = "vector_square <<< blocks, threadsPerBlock >>> ();";
-        String r3 = "vector_square1<vector_square2> <<< blocks, threadsPerBlock >>> (C_d, A_d, N);";
-        String r4 = "vector_square1<vector_square2> <<< blocks, threadsPerBlock >>> ();";
+        String r3 = "vector_square1<double> <<< blocks, threadsPerBlock >>> (C_d, A_d, N);";
+        String r4 = "vector_square1<long long> <<< blocks, threadsPerBlock >>> ();";
         String r5 = "vector_square <<< blocks, threadsPerBlock, N >>> (C_d, A_d);";
         String r6 = "vector_square <<< blocks, threadsPerBlock, N >>> ();";
         String r7 = "vector_square1<vector_square2> <<< blocks, threadsPerBlock, C_d >>> (A_d, N);";
@@ -38,6 +39,8 @@ public class TestKernelPattern {
         String r13 = "vector_square <<< dim3(blocks), dim3(threadsPerBlock) >>> (C_d, A_d, N);";
         String r14 = "calculateForce <<< grid, block >>> (d_phiold, d_Fx, d_Fy, d_Fz, ";
         String r15 = "        calculateForce <<< grid, block >>> (d_phiold, d_Fx, d_Fy, d_Fz, ";
+        String r16 = "        atomicDerived<unsigned long long> <<< dim3(NUM_BLOCKS), dim3(BLOCK_SIZE) >>> (d_res_u64);";
+
 
         Assert.assertEquals(r1,KernelPattern.convertKernel(s1));
         Assert.assertEquals(r2,KernelPattern.convertKernel(s2));
@@ -54,6 +57,7 @@ public class TestKernelPattern {
         Assert.assertEquals(r13,KernelPattern.convertKernel(s13));
         Assert.assertEquals(r14,KernelPattern.convertKernel(s14));
         Assert.assertEquals(r15,KernelPattern.convertKernel(s15));
+        Assert.assertEquals(r16,KernelPattern.convertKernel(s16));
     }
 
 
